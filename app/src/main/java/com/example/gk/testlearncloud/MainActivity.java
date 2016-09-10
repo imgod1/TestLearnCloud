@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button btn_save;
     private Button btn_query;
+    private TextView txt_content;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         btn_save = (Button) findViewById(R.id.btn_save);
         btn_query = (Button) findViewById(R.id.btn_query);
+        txt_content = (TextView) findViewById(R.id.txt_content);
     }
 
 
@@ -135,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    private List<AVObject> resultList = new ArrayList<>();
-
     /**
      * 解析得到的对象集合json串
      *
@@ -144,16 +145,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void resolveQueryResponse(String content) {
         Log.e("resolveQueryResponse", content);
-        List<AVObject> tempList = JSON.parseArray(content, AVObject.class);
-        resultList.clear();
-        resultList.addAll(tempList);
-        Log.e("resolveQueryResponse", "当前服务器共有" + resultList.size() + "条数据");
-        toast.setText("当前服务器共有" + resultList.size() + "条数据");
+        content = content.replaceAll("@type", "type");
+        Log.e("resolveQueryResponse", content);
+        List<ResponseItemBean> tempList = JSON.parseArray(content, ResponseItemBean.class);
+        Log.e("resolveQueryResponse", "当前服务器共有" + tempList.size() + "条数据");
+        toast.setText("当前服务器共有" + tempList.size() + "条数据");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("当前服务器共有" + tempList.size() + "条数据\n");
         toast.show();
-        for (int i = 0; i < resultList.size(); i++) {
-            AVObject av = resultList.get(i);
+        for (int i = 0; i < tempList.size(); i++) {
+            ResponseItemBean av = tempList.get(i);
             Log.e("resolveQueryResponse", "test:" + av.toString());
+            stringBuilder.append("position:" + i + "\t\t\t" + av.toString() + "\n");
         }
+        txt_content.setText(stringBuilder.toString());
     }
 
 }

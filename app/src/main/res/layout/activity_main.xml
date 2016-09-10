@@ -17,4 +17,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="查询数据" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="请求结果"
+                />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>
