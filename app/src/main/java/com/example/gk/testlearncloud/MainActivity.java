@@ -1,8 +1,8 @@
 package com.example.gk.testlearncloud;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,19 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SimplePropertyPreFilter;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.CountCallback;
 import com.avos.avoscloud.FindCallback;
-import com.avos.avoscloud.GetCallback;
 import com.avos.avoscloud.SaveCallback;
 import com.example.gk.testlearncloud.bean.ResponseItemBean;
-import com.example.gk.testlearncloud.bean.ServerData;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -145,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void resolveQueryResponse(String content) {
         Log.e("resolveQueryResponse", content);
-        content = content.replaceAll("@type", "type");
+        content = content.replaceAll("@type", "type");//屏蔽@type
         Log.e("resolveQueryResponse", content);
         List<ResponseItemBean> tempList = JSON.parseArray(content, ResponseItemBean.class);
         Log.e("resolveQueryResponse", "当前服务器共有" + tempList.size() + "条数据");
